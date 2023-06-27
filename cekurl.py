@@ -1,14 +1,6 @@
-import requests
 from bs4 import BeautifulSoup
 
-url = "https://www.klikbca.com"
-r = requests.get(url)
-soup = BeautifulSoup(r.content, 'html.parser')
+html = "<html><head><title>Hello World</title></head><body><h1>BeautifulSoup Example</h1><p>This is an example of BeautifulSoup in action.</p></body></html>"
+soup = BeautifulSoup(html, "html.parser")
 
-currency_table = soup.find('table', class_='tbl_currn')
-
-if currency_table is not None:
-    print(currency_table.prettify())
-else:
-    print("Tidak bisa menemukan tabel kurs.")
-
+print(soup.select_one("h1").text.strip())

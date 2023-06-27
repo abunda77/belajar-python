@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-query = input("Masukkan keyword yang ingin dicari: ")
+query = input("\n\033[33mMasukkan keyword yang ingin dicari: \033[0m")
 
 # set header User-Agent
 headers = {
@@ -15,6 +15,18 @@ soup = BeautifulSoup(response.content, 'html.parser')
 
 # pastikan objek BeautifulSoup tidak kosong
 if soup.body.contents:
+    # cari elemen hasil pencarian
+    resultStats = soup.find(id="result-stats")
+
+    # periksa apakah elemen ditemukan
+    if resultStats:
+        # ekstrak jumlah total hasil pencarian
+        totalResults = resultStats.get_text().split()[1]
+
+        print("\n\033[32mJumlah hasil pencarian untuk '\033[0m" + "\033[33m{}\033[0m".format(
+            query) + "\033[32m' adalah\033[0m" + "\033[33m {}\033[0m".format(totalResults))
+    else:
+        print("Elemen 'result-stats' tidak ditemukan.")
 
     # cari semua elemen hasil pencarian
     searchResults = soup.find_all('div', class_='g')
@@ -23,7 +35,7 @@ if soup.body.contents:
     # cetak hasil pencarian dalam format tabel berbentuk tekstual
     table = []
     table.append(['NO. URUT', 'JUDUL', 'URL'])
-    for result in searchResults[:10]:
+    for result in searchResults[:50]:
         try:
             title = result.find('h3').get_text()
             url = result.find('a')['href']
