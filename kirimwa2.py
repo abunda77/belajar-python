@@ -19,9 +19,29 @@ payload = {
     }
 }
 
-headers = {
-    'Authorization': 'Bearer dk_7dbf26f5757141f6808155c5a5af478a'
-}
+# Membuka file api_key.txt dan membacanya baris per baris
+with open('api_key.txt', 'r') as file:
+    lines = file.readlines()
+
+# Mencari baris yang mengandung 'api_key3='
+target_line = None
+for line in lines:
+    if 'api_key3=' in line:
+        target_line = line
+        break
+
+# Jika baris ditemukan, ekstrak nilai api key
+if target_line:
+    api_key = target_line.split('=')[1].strip()
+    # Menggunakan api_key dalam kode Python
+    headers = {
+        'Authorization': f'Bearer {api_key}'
+    }
+    # Lakukan sesuatu dengan headers di sini
+    print("API Key Valid")
+else:
+    print("Baris dengan api key tidak ditemukan.")
+
 
 response = requests.post(url, headers=headers, json=payload)
 
