@@ -4,7 +4,7 @@ from colorama import Fore, Style
 
 def load_api_key():
     try:
-        with open('api_key.txt', 'r') as file:
+        with open('apikey.txt', 'r') as file:
             api_key = file.read().strip().split('=')[1]
         return api_key
     except Exception:
@@ -12,7 +12,7 @@ def load_api_key():
 
 def save_api_key(api_key):
     try:
-        with open('api_key.txt', 'w') as file:
+        with open('apikey.txt', 'w') as file:
             file.write(f'api_key={api_key}\n')
         print('Kunci API berhasil disimpan dalam file api_key.txt.')
     except Exception as e:
