@@ -7,7 +7,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 from twocaptcha import TwoCaptcha
 
-api_key = os.getenv('APIKEY_2CAPTCHA', '7c4a5520b478f379958887903f6810ff')
+api_key = os.getenv('APIKEY_2CAPTCHA', '')
 
 solver = TwoCaptcha(api_key)
 print(solver)
